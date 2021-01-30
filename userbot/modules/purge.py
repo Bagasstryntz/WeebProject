@@ -47,7 +47,7 @@ async def fastpurger(purg):
     await done.delete()
 
 
-@register(outgoing=True, pattern=r"^\.delkenang")
+@register(outgoing=True, pattern=r"^\.purgeme")
 async def purgeme(delme):
     """ For .purgeme, delete x count of your latest message."""
     message = delme.text
@@ -62,7 +62,7 @@ async def purgeme(delme):
 
     smsg = await delme.client.send_message(
         delme.chat_id,
-        "`Menghapus Kenangan!` Sebanyak " + str(count) + " messages.",
+        "`Purge complete!` Purged " + str(count) + " messages.",
     )
     """
     if BOTLOG:
@@ -73,7 +73,6 @@ async def purgeme(delme):
     await sleep(2)
     i = 1
     await smsg.delete()
-
 
 @register(outgoing=True, pattern=r"^\.del$")
 async def delete_it(delme):
