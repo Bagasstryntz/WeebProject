@@ -140,7 +140,6 @@ async def amireallyalive(alive):
         f"🇮🇩 `Python         :` v{python_version()}\n"
         f"🇮🇩 `Telethon       :` v{version.__version__}\n"
         f"🇮🇩 `Pengguna       :` {DEFAULTUSER}\n"
-        f"🇮🇩 `Module loaded  : `{len(modules)} \n\n"
         "----------------------------------------\n"
 
     )
