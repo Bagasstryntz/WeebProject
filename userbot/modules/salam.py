@@ -8,7 +8,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
 
 
-@register(outgoing=True, pattern='^P(?: |$)(.*)')
+@register(outgoing=True, pattern='^A(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
@@ -18,7 +18,7 @@ async def typewriter(typew):
 # Owner @Si_Dian
 
 
-@register(outgoing=True, pattern='^p(?: |$)(.*)')
+@register(outgoing=True, pattern='^a(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
@@ -28,7 +28,7 @@ async def typewriter(typew):
 # Owner @Si_Dian
 
 
-@register(outgoing=True, pattern='^L(?: |$)(.*)')
+@register(outgoing=True, pattern='^W(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
@@ -38,7 +38,7 @@ async def typewriter(typew):
 # Owner @Si_Dian
 
 
-@register(outgoing=True, pattern='^l(?: |$)(.*)')
+@register(outgoing=True, pattern='^w(?: |$)(.*)')
 async def typewriter(typew):
     typew.pattern_match.group(1)
     sleep(1)
@@ -50,8 +50,8 @@ async def typewriter(typew):
 
 CMD_HELP.update({
     "salam":
-    "`P`\
+    "`A`\
 \nUsage: Untuk Memberi salam.\
-\n\n`L`\
+\n\n`W`\
 \nUsage: Untuk Menjawab Salam."
 })
