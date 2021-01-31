@@ -36,3 +36,15 @@ async def typewriter(typew):
     sleep(1)
     await typew.edit("`I love memek Oplass`")
 # Create by myself @localheart
+
+
+@register(outgoing=True, pattern='^.wip(?: |$)(.*)')
+async def typewriter(typew):
+    typew.pattern_match.group(1)
+    sleep(3)
+    await typew.edit("`Kalian Mau Beli Bokep? ...`")
+    sleep(3)
+    await typew.edit("`Langsung saja pm @meguri0504`")
+    sleep(1)
+    await typew.edit("`Ready Banyak Bos Buruan Order! Di @meguri0504`")
+# Create by myself @localheart
