@@ -42,7 +42,7 @@ async def gen_chlog(repo, diff):
 
 async def print_changelogs(event, ac_br, changelog):
     changelog_str = (
-        f"**New UPDATE available for [{ac_br}]:\n\nCHANGELOG:**\n`{changelog}`"
+        f"**Pembaruan Tersedia [{ac_br}]:\n\nChangelog:**\n`{changelog}`"
     )
     if len(changelog_str) > 4096:
         await event.edit("`Changelog is too big, view the file to see it.`")
@@ -138,7 +138,7 @@ async def update(event, repo, ups_rem, ac_br):
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
     await event.edit(
-        "`Successfully Updated!\n" "Bot is restarting... Wait for a second!`"
+        "`Berhasil Di Perbarui!\n" "MengRestart Bot... Sabar Bosq!`"
     )
     # Spin a new instance of bot
     args = [sys.executable, "-m", "userbot"]
@@ -221,7 +221,7 @@ async def upstream(event):
             "`Force-Syncing to latest stable userbot code, please wait...`"
         )
     if conf == "now":
-        await event.edit("`Updating userbot, please wait....`")
+        await event.edit("`Memperbarui Userbot, Sabar anjg....`")
         await update(event, repo, ups_rem, ac_br)
     return
 
