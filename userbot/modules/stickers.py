@@ -90,7 +90,7 @@ async def kang(args):
     if photo:
         splat = args.text.split()
         if not emojibypass:
-            emoji = "🤔"
+            emoji = "🤪"
         pack = 1
         if len(splat) == 3:
             pack = splat[2]  # User sent both
@@ -253,7 +253,8 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
 
         await args.edit(
-            "Curry Success!" f"\n[Klik Disini](t.me/addstickers/{packname})",
+            "Successfully added!.
+             Your sticker are saved in" f"\n[This Pack](t.me/addstickers/{packname})",
             parse_mode="md",
         )
 
