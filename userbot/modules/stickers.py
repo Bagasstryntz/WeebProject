@@ -253,8 +253,7 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
 
         await args.edit(
-            "Successfully added!.
-             Your sticker are saved in" f"\n[This Pack](t.me/addstickers/{packname})",
+            "Successfully added!Your sticker are saved in" f"\n[This Pack](t.me/addstickers/{packname})",
             parse_mode="md",
         )
 
