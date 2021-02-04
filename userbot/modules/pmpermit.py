@@ -192,7 +192,7 @@ async def notifon(non_event):
     await non_event.edit("`Notifications from unapproved PM's unmuted!`")
 
 
-@register(outgoing=True, pattern=r"^\.approve$")
+@register(outgoing=True, pattern=r"^\.approve(?:$| )(.*)")
 async def approvepm(apprvpm):
     """ For .approve command, give someone the permissions to PM you. """
     try:
@@ -207,9 +207,22 @@ async def approvepm(apprvpm):
         aname = replied_user.id
         name0 = str(replied_user.first_name)
         uid = replied_user.id
-
+    elif apprvpm.pattern_match.group(1):
+        inputArgs = apprvpm.pattern_match.group(1)
+        if inputArgs.isdigit():
+            inputArgs = int(inputArgs)
+        try:
+            user = await apprvpm.client.get_entity(inputArgs)
+        except BaseException:
+            return await apprvpm.edit("`Invalid username/ID.`")
+        if not isinstance(user, User):
+            return await apprvpm.edit("`You're not referring to a user.`")
+        uid = user.id
+        name0 = str(user.first_name)
     else:
         aname = await apprvpm.client.get_entity(apprvpm.chat_id)
+        if not isinstance(aname, User):
+            return await apprvpm.edit("`You're not referring to a user.`")
         name0 = str(aname.first_name)
         uid = apprvpm.chat_id
 
@@ -239,7 +252,7 @@ async def approvepm(apprvpm):
         )
 
 
-@register(outgoing=True, pattern=r"^\.disapprove$")
+@register(outgoing=True, pattern=r"^\.disapprove(?:$| )(.*)")
 async def disapprovepm(disapprvpm):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
@@ -251,16 +264,30 @@ async def disapprovepm(disapprvpm):
         replied_user = await disapprvpm.client.get_entity(reply.from_id)
         aname = replied_user.id
         name0 = str(replied_user.first_name)
-        dissprove(replied_user.id)
+        dissprove(aname)
+        uid = replied_user.id
+    elif disapprvpm.pattern_match.group(1):
+        inputArgs = disapprvpm.pattern_match.group(1)
+        if inputArgs.isdigit():
+            inputArgs = int(inputArgs)
+        try:
+            user = await disapprvpm.client.get_entity(inputArgs)
+        except BaseException:
+            return await disapprvpm.edit("`Invalid username/ID.`")
+        if not isinstance(user, User):
+            return await disapprvpm.edit("`This can be done only with users.`")
+        uid = user.id
+        dissprove(uid)
+        name0 = str(user.first_name)
     else:
         dissprove(disapprvpm.chat_id)
         aname = await disapprvpm.client.get_entity(disapprvpm.chat_id)
+        if not isinstance(aname, User):
+            return await disapprvpm.edit("`You're not reffering to a User`")
         name0 = str(aname.first_name)
         uid = disapprvpm.chat_id
 
-    await disapprvpm.edit(
-        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`"
-    )
+    await disapprvpm.edit(f"[{name0}](tg://user?id={uid}) `disaproved to PM!`")
 
     if BOTLOG:
         await disapprvpm.client.send_message(
@@ -280,12 +307,11 @@ async def blockpm(block):
         await block.client(BlockRequest(replied_user.id))
         await block.edit("`You've been blocked!`")
         uid = replied_user.id
-    elif block.is_group and not block.reply_to_msg_id:
-        await block.edit("`Please reply to user you want to block`")
-        return
     else:
         await block.client(BlockRequest(block.chat_id))
         aname = await block.client.get_entity(block.chat_id)
+        if not isinstance(aname, User):
+            return await block.edit("`You're not referring to a User`")
         await block.edit("`You've been blocked!`")
         name0 = str(aname.first_name)
         uid = block.chat_id
